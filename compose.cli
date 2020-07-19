@@ -1,0 +1,11 @@
+docker run -d --privileged=true --restart=always --name php  -p 192.168.11.134:9000:9000 \
+	 -v "/root/lnmp/www":/www  \
+	 -v "/root/lnmp/php/etc/":/etc/php/7.2/fpm/  \
+	 phpdockerio/php72-fpm
+
+
+docker run -d --privileged=true --restart=always --name nginx -p 192.168.11.134:80:80 --link php:php \
+	 -v /root/lnmp/www:/www \
+	 -v /root/lnmp/nginx/conf/:/etc/nginx/ \
+	 -v /root/lnmp/nginx/logs/:/var/log/nginx/logs/ \
+	 nginx
